@@ -25,8 +25,166 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<section>
+					<h1>Canvas</h1>
+					<pre><code class="hljs html"><canvas id="canvas"></canvas></code></pre>
+					<img src="./assets/1 image.png" width="600px" height="450px" alt="canvas">
+				</section>
+				<section>
+					<section>
+						<h2>Basic usage of canvas</h2>
+						<pre><code class="hljs html"><canvas id="tutorial" width="150" height="150"></canvas></code></pre>
+					</section>
+					<section>
+						<p>The canvas is initially blank. To display something, a script first needs to access the rendering context and draw on it. The &lt;canvas&gt; element has a method called getContext(), used to obtain the rendering context and its drawing functions. getContext() takes one parameter, the type of context. For 2D graphics, such as those covered by this tutorial, you specify "2d" to get a CanvasRenderingContext2D.</p>
+						<pre><code class="hljs javascript">
+var canvas = document.getElementById('tutorial');
+var ctx = canvas.getContext('2d');</code> </pre>
+					</section>
+				</section>
+				<section>
+					<h2>Drawing shapes with canvas</h2>
+					<ul>
+						<li>The Grid</li>
+						<li>Drawing rectangles</li>
+						<li>Drawing Paths</li>
+					</ul>
+				</section>
+				<section>
+					<h4>The Grid</h4>
+					<img src="./assets/2slide.PNG" width="450px" height="450px" alt="Grid">
+				</section>
+				<section>
+					<section>
+						<h4>Drawing rectangles</h4>
+						<p> &lt;canvas&gt; only supports two primitive shapes: rectangles and paths (lists of points connected by lines).</p> 
+						<p>There are three functions that draw rectangles on the canvas:</p>
+					</section>
+					<section>
+							<code class="hljs html">fillRect(x, y, width, height)</code>
+							Draws a filled rectangle.
+							<code class="hljs html">strokeRect(x, y, width, height)</code>
+							Draws a rectangular outline.
+							<code class="hljs html">clearRect(x, y, width, height)</code>
+							Clears the specified rectangular area, making it fully transparent.
+					</section>
+					<section>
+						<pre><code class="hljs javascript">
+function draw() {
+	var canvas = document.getElementById('canvas');
+	if (canvas.getContext) {
+	var ctx = canvas.getContext('2d');
+								  
+	ctx.fillRect(25,25,100,100);
+	ctx.clearRect(45,45,60,60);
+	ctx.strokeRect(50,50,50,50);
+	}
+}
+						</code> </pre>
+						<img src="./assets/3slide.PNG" width="300px" height="300px" alt="result">
+					</section>
+				</section>
+				<section>
+					<section>
+						<h4>Drawing Paths</h4>
+						<img src="./assets/path.png" width="850px" height="550px" alt="path">
+					</section>
+					<section>
+						<p>Here are the functions used to perform these steps:</p>
+						<code class="hljs javascript">beginPath()</code>
+						Creates a new path. Once created, future drawing commands are directed into the path and used to build the path up.
+						<code class="hljs javascript">Path methods</code>
+						Methods to set different paths for objects.
+						<code class="hljs javascript">closePath()</code>
+						Adds a straight line to the path, going to the start of the current sub-path.
+					</section>
+					<section>
+						<code class="hljs javascript">stroke()</code>
+						Draws the shape by stroking its outline
+						<code class="hljs javascript">fill()</code>
+						Draws a solid shape by filling the path's content area.
+						<code class="hljs javascript">moveTo(x, y)</code>
+						<p><code class="hljs javascript">lineTo(x, y)</code></p>
+						Draws a line from the current drawing position to the position specified by x and y
+					</section>
+					<section>
+						To draw arcs or circles, we use the arc() or arcTo() methods.
+						<p><code class="hljs javascript">arc(x, y, radius, startAngle, endAngle, anticlockwise)</code></p>
+						<p><code class="hljs javascript">arcTo(x1, y1, x2, y2, radius)</code></p>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h4>Using images</h4>
+						<p>Importing images into a canvas is two step process:</p>
+						<ol>
+							<li>Get a reference to an HTMLImageElement object or to another canvas element as a source.</li>
+							<li>Draw the image on the canvas using the drawImage() function.</li>
+						</ol>
+					</section>
+					<section>
+						<p>The canvas API is able to use any of the following data types as an image source:</p>
+						<ul>
+							<li>HTMLImageElement</li>
+							<li>SVGImageElement</li>
+							<li>HTMLVideoElement</li>
+							<li>HTMLCanvasElement</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h4>Transformations</h4>
+						<img src="./assets/translate_rotate.jpg" width="800px" height="550px" alt="translate_rotate">
+					</section>
+					<section>
+							<p><code class="hljs javascript">scale(x, y)</code></p>
+							<img src="./assets/scale.PNG" width="400px" height="300px" alt="scale">
+					</section>
+				</section>
+				<section>
+					<section>
+						<h4>Basic animations</h4>
+						<img src="./assets/animation.PNG" width="500px" height="300px" alt="animation">
+					</section>
+					<section>
+						<p>Basic animation steps</p>
+						<ol>
+							<li>Clear the canvas</li>
+							<li>Save the canvas state</li>
+							<li>Draw animated shapes</li>
+							<li>Restore the canvas state</li>
+						</ol>
+					</section>
+					<section>
+						<h4>Controlling an animation</h4>
+						<p>Shapes are drawn to the canvas by using the canvas methods directly or by calling custom functions. In normal circumstances, we only see these results appear on the canvas when the script finishes executing. For instance, it isn't possible to do an animation from within a for loop.
+						That means we need a way to execute our drawing functions over a period of time.
+						</p>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h4>Optimizing canvas</h4>
+						<ul>
+							<li>Pre-render similar primitives or repeating objects on an offscreen canvas</li>
+							<li>Avoid floating-point coordinates and use integers instead</li>
+							<li>Don’t scale images in drawImage</li>
+							<li>Use multiple layered canvases for complex scenes</li>
+							<li>Use plain CSS for large background images</li>
+							<li>Scaling canvas using CSS transforms</li>
+						</ul>
+					</section>
+					<section>
+						<p>More tips</p>
+						<li>Batch canvas calls together. For example, draw a polyline instead of multiple separate lines.</li>
+						<li>Avoid unnecessary canvas state changes.</li>
+						<li>Render screen differences only, not the whole new state.</li>
+						<li>Avoid the shadowBlur property whenever possible.</li>
+						<li>Avoid text rendering whenever possible.</li>
+						<li>Try different ways to clear the canvas (clearRect() vs. fillRect() vs. resizing the canvas).</li>
+					</section>
+				</section>
 			</div>
 		</div>
 
