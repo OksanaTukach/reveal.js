@@ -22,6 +22,7 @@ To make shapes using paths, we take some extra steps:
 1.	First, you create the path.
 2.	Then you use drawing commands to draw into the path.
 3.	Once the path has been created, you can stroke or fill the path to render it.
+
 Here are the functions used to perform these steps:
 beginPath()
 Creates a new path. Once created, future drawing commands are directed into the path and used to build the path up.
